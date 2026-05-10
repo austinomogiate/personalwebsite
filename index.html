@@ -73,6 +73,59 @@
 
   .nav-links a:hover { color: var(--accent-sand); }
 
+  .nav-bar-end {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav-toggle-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .nav-burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    border-radius: 10px;
+    z-index: 120;
+    transition: background 0.2s;
+  }
+
+  .nav-burger:hover { background: rgba(0,0,0,0.05); }
+
+  .nav-burger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--charcoal);
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.2s ease;
+  }
+
+  .nav-toggle-input:checked + .nav-burger span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .nav-toggle-input:checked + .nav-burger span:nth-child(2) { opacity: 0; }
+
+  .nav-toggle-input:checked + .nav-burger span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
   .nav-resume {
     background: var(--charcoal);
     color: var(--white) !important;
@@ -106,6 +159,7 @@
     border-radius: 50%;
     opacity: 0.5;
   }
+
 
   .hero::after {
     content: '';
@@ -233,6 +287,10 @@
 
   /* ── SECTION WRAPPER ── */
   section { padding: 96px 48px; }
+
+  #work, #projects, #articles, #contact, #how-i-work {
+    scroll-margin-top: 88px;
+  }
 
   .section-header {
     display: flex;
@@ -542,8 +600,8 @@
     color: var(--mid-gray);
   }
 
-  /* ── ABOUT ME ── */
-  #about { background: var(--white); }
+  /* ── CONTACT / ABOUT ── */
+  #contact { background: var(--white); }
 
   .about-grid {
     display: grid;
@@ -804,26 +862,91 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
-    nav { padding: 16px 24px; }
-    .nav-links { display: none; }
-    section { padding: 64px 24px; }
-    .hero { grid-template-columns: 1fr; padding: 120px 24px 64px; gap: 48px; }
-    .hero-image { justify-content: flex-start; }
-    .hero-photo-wrap { width: 260px; height: 320px; }
+    nav { padding: 14px 20px; }
+    .nav-bar-end { position: relative; }
+    .nav-burger { display: flex; }
+
+    .nav-links {
+      position: fixed;
+      inset: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 110;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      margin: 0;
+      padding: 88px 24px 32px;
+      background: rgba(247, 245, 240, 0.97);
+      backdrop-filter: blur(14px);
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.35s ease, opacity 0.3s ease;
+    }
+
+    .nav-links li { width: 100%; max-width: 280px; text-align: center; }
+
+    .nav-links a {
+      display: block;
+      padding: 14px 20px;
+      font-size: 1.05rem;
+    }
+
+    .nav-links .nav-resume {
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    .nav-toggle-input:checked ~ .nav-links {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    body:has(.nav-toggle-input:checked) { overflow: hidden; }
+
+    section { padding: 56px 20px; }
+    .hero { grid-template-columns: 1fr; padding: 100px 20px 48px; gap: 40px; min-height: auto; }
+    .hero-image { justify-content: center; }
+    .hero-photo-wrap { width: min(100%, 280px); height: 340px; }
+    .hero-name { font-size: clamp(2.4rem, 12vw, 4rem); }
+    .hero-tagline { font-size: 1rem; max-width: none; }
+    .section-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
     .experience-grid { grid-template-columns: 1fr; }
+    .exp-card { padding: 28px 22px; }
     .exp-card.featured { grid-column: span 1; }
-    .projects-grid { grid-template-columns: 1fr 1fr; }
-    .pillars-grid { grid-template-columns: 1fr 1fr; }
-    .articles-grid { grid-template-columns: 1fr 1fr; }
-    .about-grid { grid-template-columns: 1fr; gap: 40px; }
-    footer { grid-template-columns: 1fr; text-align: center; }
+    .projects-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .project-body { padding: 18px; }
+    .pillars-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .pillar-card { padding: 24px 20px; }
+    .articles-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .article-body { padding: 18px; }
+    .about-grid { grid-template-columns: 1fr; gap: 36px; }
+    .awards-section { padding: 48px 20px; }
+    .awards-inner { flex-direction: column; align-items: flex-start; gap: 28px; }
+    .cta-banner { padding: 64px 20px; }
+    .cta-buttons { flex-direction: column; align-items: stretch; }
+    .cta-buttons .btn { justify-content: center; }
+    footer { grid-template-columns: 1fr; padding: 40px 20px; text-align: center; }
     .footer-social { justify-content: center; }
     .footer-copy { grid-column: span 1; }
-    .footer-links { justify-content: center; flex-wrap: wrap; gap: 20px; }
+    .footer-links { justify-content: center; flex-wrap: wrap; gap: 16px 20px; }
+    .divider { margin: 0 20px; }
   }
 
   @media (max-width: 600px) {
     .projects-grid, .articles-grid, .pillars-grid { grid-template-columns: 1fr; }
+    .hero-photo-wrap { height: 300px; }
+    .exp-company { font-size: 1.2rem; }
   }
 </style>
 </head>
@@ -832,13 +955,17 @@
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">A. Omogiate</a>
-  <ul class="nav-links">
-    <li><a href="#work">Work Experience</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#articles">Articles</a></li>
-    <li><a href="#about">About Me</a></li>
-    <li><a href="ITUA_AUSTIN_OMOGIATE_.pdf" target="_blank" class="nav-resume">Resume</a></li>
-  </ul>
+  <div class="nav-bar-end">
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-input">
+    <label for="nav-toggle" class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></label>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#projects">Project</a></li>
+      <li><a href="#articles">Articles</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="ITUA_AUSTIN_OMOGIATE_.pdf" target="_blank" class="nav-resume">Resume</a></li>
+    </ul>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -1120,7 +1247,7 @@
 </section>
 
 <!-- ABOUT ME -->
-<section id="about">
+<section id="contact">
   <div class="section-header">
     <h2 class="section-title">About Me</h2>
   </div>
@@ -1169,10 +1296,10 @@
 <footer>
   <div class="footer-logo">Austin Omogiate</div>
   <ul class="footer-links">
-    <li><a href="#work">Work Experience</a></li>
-    <li><a href="#projects">Projects</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#projects">Project</a></li>
     <li><a href="#articles">Articles</a></li>
-    <li><a href="#about">About Me</a></li>
+    <li><a href="#contact">Contact</a></li>
     <li><a href="ITUA_AUSTIN_OMOGIATE_.pdf" target="_blank">Resume</a></li>
   </ul>
   <div class="footer-social">
@@ -1182,5 +1309,18 @@
   <div class="footer-copy">© 2025 Austin Omogiate · austin_omogiate1@baylor.edu · (254) 214-4984</div>
 </footer>
 
+<script>
+(function () {
+  var toggle = document.getElementById('nav-toggle');
+  var burger = document.querySelector('.nav-burger');
+  if (!toggle || !burger) return;
+  document.querySelectorAll('.nav-links a').forEach(function (a) {
+    a.addEventListener('click', function () { toggle.checked = false; });
+  });
+  toggle.addEventListener('change', function () {
+    burger.setAttribute('aria-label', toggle.checked ? 'Close menu' : 'Menu');
+  });
+})();
+</script>
 </body>
 </html>
