@@ -153,6 +153,7 @@
     font-weight: 700;
     letter-spacing: -0.02em;
     color: var(--text);
+    text-decoration: none;
   }
   .mobile-menu-close {
     width: 44px;
@@ -986,7 +987,7 @@
 
 <div class="mobile-menu" id="mobile-menu">
   <div class="mobile-menu-top">
-    <span class="mobile-menu-name">Austin Omogiate</span>
+    <a href="#home" class="mobile-menu-name">Austin Omogiate</a>
     <label for="nav-toggle" class="mobile-menu-close" aria-label="Close menu">×</label>
   </div>
   <nav class="mobile-menu-links" aria-label="Mobile">
@@ -1333,7 +1334,7 @@
   var nav = document.getElementById('site-nav');
   var toggle = document.getElementById('nav-toggle');
   var burger = document.querySelector('.nav-burger');
-  var links = document.querySelectorAll('.nav-desktop a, .mobile-menu-links a');
+  var links = document.querySelectorAll('.nav-desktop a, .mobile-menu-links a, .mobile-menu-name');
 
   function onScroll() {
     if (nav) nav.classList.toggle('is-scrolled', window.scrollY > 10);

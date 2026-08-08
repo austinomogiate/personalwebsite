@@ -131,6 +131,7 @@
     font-weight: 700;
     letter-spacing: -0.02em;
     color: var(--text);
+    text-decoration: none;
   }
   .mobile-menu-close {
     width: 44px;
@@ -629,7 +630,7 @@
 
 <div class="mobile-menu" id="mobile-menu">
   <div class="mobile-menu-top">
-    <span class="mobile-menu-name">Austin Omogiate</span>
+    <a href="index.html#home" class="mobile-menu-name">Austin Omogiate</a>
     <label for="nav-toggle" class="mobile-menu-close" aria-label="Close menu">×</label>
   </div>
   <nav class="mobile-menu-links" aria-label="Mobile">
@@ -865,7 +866,7 @@
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
   if (toggle) {
-    document.querySelectorAll('.nav-desktop a, .mobile-menu-links a').forEach(function (a) {
+    document.querySelectorAll('.nav-desktop a, .mobile-menu-links a, .mobile-menu-name').forEach(function (a) {
       a.addEventListener('click', function () { toggle.checked = false; });
     });
   }
