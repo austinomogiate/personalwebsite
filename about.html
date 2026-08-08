@@ -89,7 +89,6 @@
     place-items: center;
     border-radius: 10px;
     cursor: pointer;
-    z-index: 120;
     border: 1px solid var(--border);
   }
   .nav-burger span {
@@ -104,14 +103,8 @@
   .nav-toggle:checked + .nav-burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .nav-toggle:checked + .nav-burger span:nth-child(2) { opacity: 0; }
   .nav-toggle:checked + .nav-burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-  .nav-panel {
-    display: flex;
-    align-items: center;
-  }
-  .nav-panel-brand,
-  .nav-panel-socials { display: none; }
-  .nav-links { display: flex; align-items: center; gap: 6px; }
-  .nav-links a {
+  .nav-desktop { display: flex; align-items: center; gap: 6px; }
+  .nav-desktop a {
     font-size: 0.875rem;
     font-weight: 500;
     color: var(--text-muted);
@@ -119,21 +112,69 @@
     border-radius: 999px;
     transition: color 0.2s, background 0.2s;
   }
-  .nav-links a:hover,
-  .nav-links a.is-active {
+  .nav-desktop a:hover,
+  .nav-desktop a.is-active {
     color: var(--text);
     background: rgba(139, 92, 246, 0.22);
   }
-  .nav-social {
+  .mobile-menu { display: none; }
+  .mobile-menu-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+  }
+  .mobile-menu-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  .mobile-menu-close {
     width: 44px;
     height: 44px;
-    border-radius: 999px;
-    border: 1px solid var(--border);
     display: grid;
     place-items: center;
-    color: var(--text-soft);
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--text);
+    cursor: pointer;
+    border-radius: 10px;
   }
-  .nav-social svg { width: 20px; height: 20px; fill: currentColor; }
+  .mobile-menu-links {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 24px;
+  }
+  .mobile-menu-links a {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text);
+    padding: 14px 20px;
+    letter-spacing: -0.02em;
+  }
+  .mobile-menu-links a:hover,
+  .mobile-menu-links a.is-active { color: var(--blue-bright); }
+  .mobile-menu-socials {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    padding: 28px 24px 40px;
+  }
+  .mobile-menu-socials a {
+    width: 46px;
+    height: 46px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.18);
+    display: grid;
+    place-items: center;
+    color: var(--text);
+  }
+  .mobile-menu-socials svg { width: 20px; height: 20px; fill: currentColor; }
 
   .btn {
     display: inline-flex;
@@ -377,65 +418,34 @@
   }
   @media (max-width: 760px) {
     .wrap { width: min(1120px, calc(100% - 32px)); }
-    .nav-burger { display: grid; position: relative; z-index: 130; }
+    .nav-burger { display: grid; }
+    .nav-desktop { display: none; }
     .site-nav .logo span:not(.logo-mark) { display: none; }
-    .nav-panel {
+    .mobile-menu {
+      display: flex;
+      flex-direction: column;
       position: fixed;
       inset: 0;
-      z-index: 120;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: stretch;
-      padding: 88px 28px 40px;
-      background: #070b14;
+      width: 100vw;
+      height: 100dvh;
+      min-height: 100vh;
+      z-index: 10000;
+      background: #0b1120;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+    body:has(#nav-toggle:checked) .mobile-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    body:has(#nav-toggle:checked) { overflow: hidden; }
+    body:has(#nav-toggle:checked) .site-nav {
       opacity: 0;
       pointer-events: none;
-      transform: translateY(-8px);
-      transition: opacity 0.3s, transform 0.35s var(--ease);
     }
-    .nav-toggle:checked ~ .nav-panel {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-    .nav-panel-brand {
-      display: block;
-      text-align: center;
-      font-size: 1.45rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: var(--text);
-    }
-    .nav-links {
-      flex-direction: column;
-      align-items: stretch;
-      justify-content: center;
-      flex: 1;
-      gap: 10px;
-    }
-    .nav-links a {
-      font-size: 1.25rem;
-      font-weight: 600;
-      text-align: center;
-      padding: 16px 20px;
-      border-radius: 14px;
-      background: rgba(148, 163, 184, 0.06);
-      border: 1px solid var(--border);
-      color: var(--text);
-    }
-    .nav-links a.is-active,
-    .nav-links a:hover {
-      background: rgba(139, 92, 246, 0.2);
-      border-color: rgba(139, 92, 246, 0.35);
-    }
-    .nav-panel-socials {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      padding-top: 20px;
-    }
-    .nav-desktop-only { display: none !important; }
-    body:has(.nav-toggle:checked) { overflow: hidden; }
   }
 </style>
 </head>
@@ -452,31 +462,42 @@
       <label for="nav-toggle" class="nav-burger" aria-label="Menu">
         <span></span><span></span><span></span>
       </label>
-      <nav class="nav-panel" aria-label="Primary">
-        <div class="nav-panel-brand">Austin Omogiate</div>
-        <div class="nav-links">
-          <a href="index.html#home" class="nav-desktop-only">Home</a>
-          <a href="about.html" class="is-active nav-desktop-only">About</a>
-          <a href="index.html#projects">Projects</a>
-          <a href="index.html#skills">Skills</a>
-          <a href="resume.html">Resume</a>
-          <a href="index.html#contact">Contact</a>
-        </div>
-        <div class="nav-panel-socials">
-          <a class="nav-social" href="https://linkedin.com/in/austinomogiate/" target="_blank" rel="noopener" aria-label="LinkedIn">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.5h4V23h-4V8.5zM8.5 8.5h3.8v2h.05c.53-1 1.82-2.05 3.75-2.05 4.01 0 4.75 2.64 4.75 6.07V23h-4v-6.6c0-1.57-.03-3.6-2.2-3.6-2.2 0-2.54 1.72-2.54 3.49V23h-4V8.5z"/></svg>
-          </a>
-          <a class="nav-social" href="mailto:austin_omogiate1@baylor.edu" aria-label="Email">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
-          </a>
-          <a class="nav-social" href="https://github.com/austinomogiate" target="_blank" rel="noopener" aria-label="GitHub">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.35 6.84 9.71.5.1.68-.22.68-.48 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.55-1.14-4.55-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.27 2.75 1.05A9.3 9.3 0 0 1 12 6.84c.85.01 1.71.12 2.51.34 1.9-1.32 2.74-1.05 2.74-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .26.18.59.69.48A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
-          </a>
-        </div>
+      <nav class="nav-desktop" aria-label="Primary">
+        <a href="index.html#home">Home</a>
+        <a href="about.html" class="is-active">About</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#skills">Skills</a>
+        <a href="resume.html">Resume</a>
+        <a href="index.html#contact">Contact</a>
       </nav>
     </div>
   </div>
 </header>
+
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-top">
+    <span class="mobile-menu-name">Austin Omogiate</span>
+    <label for="nav-toggle" class="mobile-menu-close" aria-label="Close menu">×</label>
+  </div>
+  <nav class="mobile-menu-links" aria-label="Mobile">
+    <a href="about.html" class="is-active">About Me</a>
+    <a href="index.html#projects">Projects</a>
+    <a href="index.html#skills">Skills</a>
+    <a href="resume.html">Resume</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+  <div class="mobile-menu-socials">
+    <a href="https://linkedin.com/in/austinomogiate/" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.5h4V23h-4V8.5zM8.5 8.5h3.8v2h.05c.53-1 1.82-2.05 3.75-2.05 4.01 0 4.75 2.64 4.75 6.07V23h-4v-6.6c0-1.57-.03-3.6-2.2-3.6-2.2 0-2.54 1.72-2.54 3.49V23h-4V8.5z"/></svg>
+    </a>
+    <a href="mailto:austin_omogiate1@baylor.edu" aria-label="Email">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    </a>
+    <a href="https://github.com/austinomogiate" target="_blank" rel="noopener" aria-label="GitHub">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.35 6.84 9.71.5.1.68-.22.68-.48 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.55-1.14-4.55-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.27 2.75 1.05A9.3 9.3 0 0 1 12 6.84c.85.01 1.71.12 2.51.34 1.9-1.32 2.74-1.05 2.74-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .26.18.59.69.48A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
+    </a>
+  </div>
+</div>
 
 <section class="page-hero">
   <div class="wrap">
@@ -583,7 +604,7 @@
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
   if (toggle) {
-    document.querySelectorAll('.nav-links a').forEach(function (a) {
+    document.querySelectorAll('.nav-desktop a, .mobile-menu-links a').forEach(function (a) {
       a.addEventListener('click', function () { toggle.checked = false; });
     });
   }
