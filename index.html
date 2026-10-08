@@ -638,6 +638,10 @@
     font-weight: 700;
     flex-shrink: 0;
   }
+  .cert-card { transition: transform 0.25s var(--ease), border-color 0.25s; }
+  a.cert-card:hover { transform: translateY(-3px); border-color: rgba(59, 130, 246, 0.35); }
+  .cert-dates { margin-top: 4px; }
+  .cert-card .cert-verify { margin-top: 6px; font-size: 0.85rem; font-weight: 600; color: var(--blue-bright); }
   .cert-card h3 { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.015em; }
   .cert-card p { color: var(--text-muted); font-size: 0.9rem; }
 
@@ -1276,13 +1280,15 @@
       <p class="section-sub">Professional credentials that back up my experience.</p>
     </div>
     <div class="cert-list">
-      <div class="cert-card">
+      <a class="cert-card" href="https://www.credly.com/badges/6ecf12e9-abe7-4cbf-b19b-d50de56ec386/linked_in_profile" target="_blank" rel="noopener" aria-label="Verify Project Management Professional (PMP) on Credly">
         <div class="cert-check" aria-hidden="true">✓</div>
         <div>
           <h3>Project Management Professional (PMP®)</h3>
           <p>Project Management Institute</p>
+          <p class="cert-dates">Issued Oct 2026 · Expires Oct 2029</p>
+          <p class="cert-verify">Verify on Credly →</p>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </section>
