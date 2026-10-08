@@ -1023,6 +1023,13 @@
     .hero-bio { margin-inline: 0; }
     .hero-actions, .social-row { justify-content: flex-start; }
   }
+  @media (max-width: 760px) {
+    .project-cards { gap: 20px; }
+    .project-card { padding: 22px; gap: 14px; }
+    .project-card h3 { font-size: 1.25rem; }
+    .project-card p { font-size: 1rem; line-height: 1.6; flex: none; }
+    .tag { font-size: 0.8rem; padding: 6px 12px; }
+  }
 </style>
 </head>
 <body>
@@ -1141,7 +1148,7 @@
       <p class="section-sub">Selected builds spanning sustainability, data systems, and AI-enabled workflows.</p>
     </div>
 
-    <div class="project-cards" style="grid-template-columns: repeat(3, 1fr);">
+    <div class="project-cards">
       <article class="project-card">
         <span class="featured-tag">Featured</span>
         <h3>We Sustain</h3>
