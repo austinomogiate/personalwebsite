@@ -610,6 +610,37 @@
 
   .center-cta { text-align: center; }
 
+  /* ── CERTIFICATIONS ── */
+  .cert-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 18px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .cert-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 22px 24px;
+  }
+  .cert-check {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--blue-bright);
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .cert-card h3 { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.015em; }
+  .cert-card p { color: var(--text-muted); font-size: 0.9rem; }
+
   /* ── SKILLS ── */
   #skills { background: transparent; }
 
@@ -1233,6 +1264,25 @@
           <li>Launched skill acquisition programs for <strong>150 young mothers</strong> and out-of-school teens; <strong>80%</strong> started businesses within 3 months.</li>
         </ul>
       </article>
+    </div>
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="wrap">
+    <div class="section-header">
+      <span class="section-pill">Credentials</span>
+      <h2 class="section-title">Certifications</h2>
+      <p class="section-sub">Professional credentials that back up my experience.</p>
+    </div>
+    <div class="cert-list">
+      <div class="cert-card">
+        <div class="cert-check" aria-hidden="true">✓</div>
+        <div>
+          <h3>Project Management Professional (PMP®)</h3>
+          <p>Project Management Institute</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
