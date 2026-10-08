@@ -1011,6 +1011,18 @@
       transition: none !important;
     }
   }
+  /* ── MOBILE: no sideways drag, consistent alignment ── */
+  html, body { max-width: 100%; overflow-x: clip; }
+  p, h1, h2, h3, h4, li, a, span { overflow-wrap: break-word; }
+  @media (max-width: 960px) {
+    .hero-grid, .help-grid, .project-cards, .footer-grid, .contact-layout,
+    .about-layout, .resume-layout { grid-template-columns: minmax(0, 1fr); }
+    .hero-grid > *, .help-grid > *, .project-cards > *, .footer-grid > *,
+    .contact-layout > *, .about-layout > *, .resume-layout > * { min-width: 0; }
+    .hero-grid { text-align: left; }
+    .hero-bio { margin-inline: 0; }
+    .hero-actions, .social-row { justify-content: flex-start; }
+  }
 </style>
 </head>
 <body>
